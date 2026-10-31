@@ -2,7 +2,7 @@
 
 # Lunixi Spring Boot Starter
 
-0.1.2 / SDK 0.2.1 source preparation. Last verified public Central versions: Starter 0.1.1 / SDK 0.2.0. New installations default to merchant-site embedding. Hosted checkout uses only backend paymentPageUrl; missing legacy URLs remain on hold without a new payment/key. Retained attempts keep their original explicit mode/body/key.
+**Spring Boot Starter 0.1.2** and **Java SDK 0.2.1** are published on Maven Central. Their release files were verified byte-for-byte against the signed bundle on 2026-10-31. New installations default to merchant-site embedding. Hosted checkout uses only backend paymentPageUrl; missing legacy URLs remain on hold without a new payment/key. Retained attempts keep their original explicit mode/body/key.
 
 
 
