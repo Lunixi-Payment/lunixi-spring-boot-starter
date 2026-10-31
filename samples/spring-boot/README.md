@@ -2,9 +2,13 @@
 
 # Spring Boot checkout example
 
+0.1.2 / SDK 0.2.1 source preparation. Last verified public Central versions: Starter 0.1.1 / SDK 0.2.0. New installations default to merchant-site embedding. Hosted checkout uses only backend paymentPageUrl; missing legacy URLs remain on hold without a new payment/key. Retained attempts keep their original explicit mode/body/key.
+
+
+
 [English](README.md) · [Türkçe](README.tr.md) · [Guide](https://docs.lunixi.com/en/sdks/spring-boot) · [Source](https://github.com/Lunixi-Payment/lunixi-spring-boot-starter/tree/main/samples/spring-boot)
 
-A runnable **Spring Boot 4.1.2 / Java 17+** MVC application using **Lunixi Spring Boot Starter 0.1.1 / Java SDK 0.2.0**. Native Spring Security JDBC login, CSRF and owned-order checkout connect to hosted or embedded Lunixi form. Exact raw signed webhooks and authenticated payment reads update native H2 orders, event inbox and an encrypted durable outbox in the same Spring JDBC transaction.
+A runnable **Spring Boot 4.1.2 / Java 17+** MVC application using **Lunixi Spring Boot Starter 0.1.2 / Java SDK 0.2.1**. Native Spring Security JDBC login, CSRF and owned-order checkout connect to hosted or embedded Lunixi form. Exact raw signed webhooks and authenticated payment reads update native H2 orders, event inbox and an encrypted durable outbox in the same Spring JDBC transaction.
 
 Two explicitly initialized demo users each own a server-side 19.90 TRY order. The browser cannot supply the amount or customer identity. The application collects no card data. Alternative methods, split cards, installments and insurance remain configured in Lunixi's payment form. Authentication, money validation, split-parent settlement proof, encryption and retry fences belong to the shared SDK/Starter.
 
@@ -45,7 +49,7 @@ build/install/lunixi-spring-checkout-example/bin/lunixi-spring-checkout-example
 | `LUNIXI_STORAGE_KEY` | Independent base64-encoded 32-byte token/outbox encryption key |
 | `LUNIXI_JDBC_URL`, `LUNIXI_JDBC_USER`, `LUNIXI_JDBC_PASSWORD` | Explicit private H2 database URL and credentials |
 | `LUNIXI_PUBLIC_BASE_URL` | Operator-configured public HTTPS callback base URL |
-| `LUNIXI_CHECKOUT_MODE` | `hosted` (default) or `embedded` |
+| `LUNIXI_CHECKOUT_MODE` | `embedded` (default) or `hosted` |
 | `LUNIXI_PREAUTH` | `true` for authorization first; otherwise `false` |
 | `LUNIXI_LOCALE` | Initial order/form locale: `en` or `tr` |
 | `LUNIXI_INITIALIZE_DISPOSABLE` | Explicit `true` only to initialize this isolated TEST example |
@@ -70,7 +74,7 @@ Open `http://localhost:8080/login` and use `alice` or `bob` with your supplied p
 
 Only the exact webhook POST and informational return POST are CSRF-exempt. The return adapter reads at most 64 KiB plus one rejection byte and ignores every field, including status and signature. It performs no customer/order lookup, database change or gateway call, and returns the same empty 303 for an unknown order. A cross-site POST may omit SameSite=Lax cookies; the following GET uses normal session and ownership checks. Do not verify a browser return with the webhook secret. Checkout/login/logout remain CSRF-protected.
 
-The gateway origin is fixed at `https://api-gateway.lunixi.com`; the actual key selects TEST/LIVE access without an invented environment field. Hosted mode redirects only to `https://pay.lunixi.com/payment/<token>`. Embedded mode uses only `https://cdn.lunixi.com/lunixi-checkout.min.js`, a properly escaped browser token and the official object configuration/mount API. It never renders gateway HTML. Configure CSP for the documented form origins.
+The gateway origin is fixed at `https://api-gateway.lunixi.com`; the actual key selects TEST/LIVE access without an invented environment field. Hosted mode uses only the exact validated backend `paymentPageUrl`; its token may differ from the embedded token and no URL is reconstructed. Embedded mode uses only `https://cdn.lunixi.com/lunixi-checkout.min.js`, a properly escaped browser token and the official object configuration/mount API. It never renders gateway HTML. Configure CSP for the documented form origins.
 
 ## Persistence and settlement
 

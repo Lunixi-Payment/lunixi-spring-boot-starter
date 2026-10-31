@@ -36,6 +36,6 @@ assert pom.findtext("p:artifactId", namespaces=ns) == artifact
 assert pom.findtext("p:version", namespaces=ns) == version
 assert pom.findtext("p:scm/p:url", namespaces=ns) == "https://github.com/Lunixi-Payment/lunixi-spring-boot-starter"
 dependencies = {(d.findtext("p:groupId", namespaces=ns), d.findtext("p:artifactId", namespaces=ns), d.findtext("p:version", namespaces=ns)) for d in pom.findall("p:dependencies/p:dependency", ns)}
-assert ("com.lunixi", "lunixi-java-sdk", "0.2.0") in dependencies
+assert ("com.lunixi", "lunixi-java-sdk", "0.2.1") in dependencies
 assert not any(group.startswith("org.junit") for group, _, _ in dependencies)
 print("Starter class61/JAR boundaries, Boot registration/metadata and SDK0.2 POM dependency passed.")

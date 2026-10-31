@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.2
+
+- Use Java SDK 0.2.1 hosted URL contract. New MVC installations default to embedded merchant-site checkout; retained explicit hosted orders keep their original choice.
+- Redirect only to backend paymentPageUrl and show review when unavailable; never infer a URL or rotate an attempt. URL and token stay encrypted in the shared ledger.
+
 ## 0.1.1
 
 - Add Maven Central developer/SCM metadata and an existing-GPG-agent signing publication with clean repository-layout bundle tasks.

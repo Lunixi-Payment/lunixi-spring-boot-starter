@@ -2,9 +2,13 @@
 
 # Spring Boot ödeme örneği
 
+0.1.2 / SDK 0.2.1 kaynak hazırlığıdır. Central’da son doğrulanan sürümler Starter 0.1.1 / SDK 0.2.0’dır. Yeni kurulum mağaza içinde gömülü form açar. Yönlendirme yalnız backend paymentPageUrl ile yapılır; eski kayıtta adres yoksa yeni ödeme/anahtar açılmadan beklenir. Mevcut denemenin özgün açık mod/gövde/anahtarı korunur.
+
+
+
 [English](README.md) · [Rehber](https://docs.lunixi.com/tr/sdks/spring-boot) · [Kaynak](https://github.com/Lunixi-Payment/lunixi-spring-boot-starter/tree/main/samples/spring-boot)
 
-**Spring Boot 4.1.2 / Java 17+**, **Lunixi Spring Boot Starter 0.1.1 / Java SDK 0.2.0** ile çalışan MVC uygulaması. Yerel Spring Security JDBC oturumu, parola özeti, CSRF ve sipariş sahipliğini yönlendirmeli/gömülü Lunixi formuna bağlar. Ham imzalı webhook ve doğrulanmış ödeme GET'i; H2 siparişini, olay kaydını ve şifreli kalıcı outbox'ı aynı Spring JDBC transaction içinde günceller.
+**Spring Boot 4.1.2 / Java 17+**, **Lunixi Spring Boot Starter 0.1.2 / Java SDK 0.2.1** ile çalışan MVC uygulaması. Yerel Spring Security JDBC oturumu, parola özeti, CSRF ve sipariş sahipliğini yönlendirmeli/gömülü Lunixi formuna bağlar. Ham imzalı webhook ve doğrulanmış ödeme GET'i; H2 siparişini, olay kaydını ve şifreli kalıcı outbox'ı aynı Spring JDBC transaction içinde günceller.
 
 Açıkça oluşturulan iki deneme kullanıcısının ayrı sunucu tarafı 19,90 TRY siparişi bulunur. Tutar veya müşteri kimliği tarayıcıdan alınmaz, kart verisi toplanmaz. Alternatif yöntemler, çoklu kart, taksit ve sigorta Lunixi form ayarlarındadır. İmzalama, kesin para, çoklu kart tahsilat kanıtı, şifreleme ve güvenli tekrar ortak SDK/Starter tarafından yönetilir.
 
@@ -45,7 +49,7 @@ build/install/lunixi-spring-checkout-example/bin/lunixi-spring-checkout-example
 | `LUNIXI_STORAGE_KEY` | Bağımsız, base64 kodlanmış 32 bayt token/outbox şifreleme anahtarı |
 | `LUNIXI_JDBC_URL`, `LUNIXI_JDBC_USER`, `LUNIXI_JDBC_PASSWORD` | Açıkça belirlenen özel H2 adresi ve bilgileri |
 | `LUNIXI_PUBLIC_BASE_URL` | Operatörün belirlediği herkese açık HTTPS dönüş kök adresi |
-| `LUNIXI_CHECKOUT_MODE` | `hosted` veya `embedded` |
+| `LUNIXI_CHECKOUT_MODE` | `embedded` (varsayılan) veya `hosted` |
 | `LUNIXI_PREAUTH` | Ön provizyon için `true`; diğer durumda `false` |
 | `LUNIXI_LOCALE` | İlk sipariş/form dili: `en` veya `tr` |
 | `LUNIXI_INITIALIZE_DISPOSABLE` | Yalnız ayrı TEST örneğini ilk kez kurarken açıkça `true` |
@@ -70,7 +74,7 @@ Varsayılan hesap, veritabanı adresi, anahtar veya otomatik tablo kurulumu yokt
 
 Yalnız tam webhook POST'u ve bilgi dönüş POST'u CSRF'den muaftır. Dönüş adaptörü en fazla 64 KiB artı bir ret baytı okur, durum/imza dahil hiçbir form alanını yorumlamaz. Kullanıcı/sipariş sorgusu, veritabanı yazımı veya gateway çağrısı yapmaz; bilinmeyen siparişe de aynı boş 303 yanıtını verir. Cross-site POST sırasında SameSite=Lax çerezi gelmeyebilir; sonraki GET normal oturum ve sahiplik kontrolünü uygular. Tarayıcı dönüşü webhook sırrıyla doğrulanmaz. Ödeme başlatma/giriş/çıkış CSRF korumasını sürdürür.
 
-Gateway sabit `https://api-gateway.lunixi.com` adresidir; gerçek TEST/LIVE erişimini anahtar belirler, uydurma ortam alanı gönderilmez. Hosted mod yalnız `https://pay.lunixi.com/payment/<token>` adresine gider. Embedded mod sabit `https://cdn.lunixi.com/lunixi-checkout.min.js`, doğru kaçışlı tarayıcı tokenı ve resmi object/mount API'sini kullanır. Gateway HTML'i basılmaz. CSP'yi resmi form origin gereksinimleriyle yapılandırın.
+Gateway sabit `https://api-gateway.lunixi.com` adresidir; gerçek TEST/LIVE erişimini anahtar belirler, uydurma ortam alanı gönderilmez. Hosted mod yalnız backend’in doğrulanmış `paymentPageUrl` değerine gider; token gömülü token’dan farklı olabilir ve adres üretilmez. Embedded mod sabit `https://cdn.lunixi.com/lunixi-checkout.min.js`, doğru kaçışlı tarayıcı tokenı ve resmi object/mount API'sini kullanır. Gateway HTML'i basılmaz. CSP'yi resmi form origin gereksinimleriyle yapılandırın.
 
 ## Kalıcılık ve tahsilat
 

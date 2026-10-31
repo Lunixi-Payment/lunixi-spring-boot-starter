@@ -29,7 +29,7 @@ def manifest(path: Path) -> dict:
         raise ValueError("SDK manifest requires exact repository/commit/version/sha256 fields.")
     if not all(isinstance(item, str) for item in value.values()):
         raise ValueError("SDK manifest values must be strings.")
-    if value["repository"] != "Lunixi-Payment/lunixi-java" or value["version"] != "0.2.0":
+    if value["repository"] != "Lunixi-Payment/lunixi-java" or value["version"] != "0.2.1":
         raise ValueError("Unexpected SDK repository/version.")
     if not re.fullmatch(r"[a-f0-9]{40}", value["commit"]) or not re.fullmatch(r"[a-f0-9]{64}", value["sha256"]):
         raise ValueError("SDK manifest needs a reviewed immutable commit and SHA256.")
@@ -68,7 +68,7 @@ def contents(data: bytes, pin: dict) -> dict[str, bytes]:
                 raise ValueError("Incomplete SDK archive entry.")
             files[str(relative)] = content
     properties = files.get("gradle.properties", b"").decode("utf-8")
-    if "lunixiVersion=0.2.0" not in properties.splitlines() or "settings.gradle" not in files:
+    if "lunixiVersion=0.2.1" not in properties.splitlines() or "settings.gradle" not in files:
         raise ValueError("SDK archive does not contain the expected build/version.")
     return files
 

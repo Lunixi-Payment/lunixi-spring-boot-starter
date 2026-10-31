@@ -22,3 +22,10 @@ The real MariaDB test pins Connector/J 3.5.11 as a test-only dependency instead 
 ## 0.1.1 publication metadata patch
 
 The original 0.1.0 functional CI acceptance is unchanged. Version 0.1.1 adds only Central-required developer/SCM metadata, signing and clean staging/bundle tasks, and a version-derived artifact check. Release preparation rebuilds the Java 17 library/source/Javadoc JARs and checks the generated POM, checksums and detached GPG signatures. Full functional/live tests were not rerun for this metadata-only patch. Registry publication is verified separately from local bundle generation.
+
+
+## 0.1.2 focused checkout / immutable SDK upgrade
+
+Prepared against Java SDK 0.2.1 public commit `1679f0baa8257e4c06ae7180c98e937a13b67169`, codeload archive SHA256 `5b8f513c0be42ff62f7e588b4d8a6a876f58206ee259aaf9c67b44873ce8ee65`. Default bootstrap and offline verification passed in a clean standalone source copy, with no SDK source override. Changed source, unexpected source file and altered archive controls were rejected, then exact sources restored and reverified. Ten bootstrap/tamper unit tests passed.
+
+Strict library compilation, SpotBugs (zero findings), JAR/source/Javadoc/POM validation and source-secret negative controls passed. The standalone MVC application passed 22 real Spring/Security/JDBC/H2 tests, the actual browser object/token/mount contract and installDist against the public pinned SDK. New tests cover embedded default, retained explicit hosted preference, encrypted backend URL persistence and missing legacy URL without another create/key. Gateway transport was synthetic; no live merchant charge or new full licensed/native platform matrix was run.

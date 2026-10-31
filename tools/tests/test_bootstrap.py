@@ -19,7 +19,7 @@ COMMIT = "b" * 40
 def archive(extra=None):
     output = io.BytesIO()
     with tarfile.open(fileobj=output, mode="w:gz") as handle:
-        files = {"settings.gradle": b"rootProject.name='lunixi-java-sdk'", "gradle.properties": b"lunixiVersion=0.2.0\n", "src/example.java": b"// synthetic public source\n"}
+        files = {"settings.gradle": b"rootProject.name='lunixi-java-sdk'", "gradle.properties": b"lunixiVersion=0.2.1\n", "src/example.java": b"// synthetic public source\n"}
         for name, content in files.items():
             item = tarfile.TarInfo("lunixi-java-" + COMMIT + "/" + name)
             item.size = len(content)
@@ -39,7 +39,7 @@ class BootstrapTests(unittest.TestCase):
         self.pin(self.data)
 
     def pin(self, data):
-        value = {"repository": "Lunixi-Payment/lunixi-java", "commit": COMMIT, "version": "0.2.0", "sha256": hashlib.sha256(data).hexdigest()}
+        value = {"repository": "Lunixi-Payment/lunixi-java", "commit": COMMIT, "version": "0.2.1", "sha256": hashlib.sha256(data).hexdigest()}
         (self.root / "tools/sdk-source.json").write_text(json.dumps(value))
         return value
 

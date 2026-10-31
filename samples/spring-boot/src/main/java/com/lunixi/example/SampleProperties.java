@@ -14,7 +14,7 @@ public final class SampleProperties implements InitializingBean {
     private boolean initializeDisposable;
     private String alicePassword = "";
     private String bobPassword = "";
-    private String checkoutMode = "hosted";
+    private String checkoutMode = "embedded";
     private boolean preauth;
     private String orderLocale = "en";
     @Override public void afterPropertiesSet() {

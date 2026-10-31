@@ -28,7 +28,10 @@ public final class CheckoutController {
         catch (RuntimeException unknown) { response.setStatus(409); return new ModelAndView("review"); }
         response.setHeader("Cache-Control", "no-store"); response.setHeader("Referrer-Policy", "no-referrer");
         if ("hosted".equals(nativeOrder.mode())) {
-            RedirectView redirect = new RedirectView(session.hostedUrl(), false); redirect.setStatusCode(HttpStatus.SEE_OTHER);
+            String hostedUrl;
+            try { hostedUrl = session.hostedUrl(); }
+            catch (RuntimeException unavailable) { response.setStatus(409); return new ModelAndView("review"); }
+            RedirectView redirect = new RedirectView(hostedUrl, false); redirect.setStatusCode(HttpStatus.SEE_OTHER);
             return new ModelAndView(redirect);
         }
         return new ModelAndView("checkout", java.util.Map.of("browserToken", session.token()));
