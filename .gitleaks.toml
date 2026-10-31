@@ -1,0 +1,3 @@
+# Default credential detection across the entire clean public source; no fixture exclusions needed.
+[extend]
+useDefault = true

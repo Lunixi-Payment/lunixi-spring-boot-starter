@@ -1,0 +1,6 @@
+rootProject.name = 'lunixi-spring-checkout-example'
+def starter = providers.gradleProperty('lunixiStarterSource').orElse('.starter-cache/lunixi-spring-boot-starter').get()
+if (!file("${starter}/settings.gradle").exists()) {
+    throw new GradleException('Supply an explicitly reviewed starter source checkout with -PlunixiStarterSource=/absolute/path/to/lunixi-spring-boot-starter. See README for public source bootstrap.')
+}
+includeBuild(starter)

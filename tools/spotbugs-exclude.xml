@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+  <!-- Spring @ConfigurationProperties is a mutable operator-controlled binding bean.
+       Allowed origins are explicitly validated before building the independent immutable
+       SDK profile; this SPI is never bound from browser input or read as a live URL source. -->
+  <Match><Class name="com.lunixi.spring.LunixiProperties"/><Method name="getAllowedOrigins"/><Bug pattern="EI_EXPOSE_REP"/></Match>
+  <Match><Class name="com.lunixi.spring.LunixiProperties"/><Method name="setAllowedOrigins"/><Bug pattern="EI_EXPOSE_REP2"/></Match>
+</FindBugsFilter>

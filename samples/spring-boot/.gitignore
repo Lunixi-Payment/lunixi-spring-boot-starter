@@ -1,0 +1,9 @@
+/.gradle/
+/build/
+/.starter-cache/
+/.sdk-cache/
+/.env
+/.env.*
+!/.env.example
+/data/
+*.log

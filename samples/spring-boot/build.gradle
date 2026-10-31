@@ -1,0 +1,38 @@
+plugins { id 'java'; id 'application' }
+repositories { mavenCentral() }
+dependencies {
+    implementation platform('org.springframework.boot:spring-boot-dependencies:4.1.2')
+    implementation 'com.lunixi:lunixi-spring-boot-starter:0.1.0'
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    runtimeOnly 'com.h2database:h2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-webmvc-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+application { mainClass = 'com.lunixi.example.CheckoutApplication' }
+tasks.withType(JavaCompile).configureEach { options.release = 17; options.encoding = 'UTF-8'; options.compilerArgs << '-Xlint:all' }
+test { useJUnitPlatform() }
+dependencyLocking { lockAllConfigurations() }
+
+tasks.register('dependencyInventory') {
+    def output = layout.buildDirectory.file('reports/dependency-inventory.json')
+    outputs.file(output)
+    doLast {
+        def inventory = [:]
+        ['runtimeClasspath', 'testRuntimeClasspath'].each { name ->
+            inventory[name] = configurations[name].incoming.resolutionResult.allComponents
+                .findAll { it.id instanceof org.gradle.api.artifacts.component.ModuleComponentIdentifier }
+                .collect { [group: it.id.group, module: it.id.module, version: it.id.version] }
+                .unique().sort { a, b -> (a.group + ':' + a.module) <=> (b.group + ':' + b.module) }
+        }
+        output.get().asFile.parentFile.mkdirs()
+        output.get().asFile.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(inventory))
+    }
+}
+tasks.register('browserContract', Exec) { commandLine 'node', 'tools/check-browser.mjs' }
+// The runnable distribution carries its reviewed setup instructions and blank configuration template.
+distributions { main { contents { from('README.md', 'README.tr.md', '.env.example') } } }

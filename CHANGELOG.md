@@ -1,0 +1,10 @@
+# Changelog
+
+## 0.1.0
+
+- Spring Boot 4.1.2 / Java 17+ auto-configuration for Java SDK 0.2.0, approved HTTPS gateway origins, native token-store/transport injection and strict merchant webhook adaptation.
+- Explicitly enabled JDBC ledger with native transaction/connection enforcement, row locks, persistent event ID/body-hash collision protection and rollback-safe application callbacks. Bean creation never installs schema.
+- Independent storage-key configuration and optional shared CommerceService; no automatic HTTP routes or durable capture/refund/void orchestration.
+- Checksum-pinned public SDK source bootstrap, full-cache validation, standalone source build, artifact/POM checks, static analysis, source secret scans and dependency audit.
+- Runnable MVC checkout example under samples/spring-boot with its own native auth/CSRF/order lifecycle and verification suite.
+- Security audit pins the test-only MariaDB Connector/J to 3.5.11; affected BOM driver 3.5.10 is not used in native acceptance.

@@ -1,0 +1,47 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+group = providers.gradleProperty('lunixiGroupId').get()
+version = providers.gradleProperty('lunixiVersion').get()
+repositories { mavenCentral() }
+dependencies {
+    api platform("org.springframework.boot:spring-boot-dependencies:${providers.gradleProperty('springBootVersion').get()}")
+    api "com.lunixi:lunixi-java-sdk:${providers.gradleProperty('lunixiSdkVersion').get()}"
+    api 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-autoconfigure'
+    api 'org.springframework:spring-jdbc'
+    annotationProcessor platform("org.springframework.boot:spring-boot-dependencies:${providers.gradleProperty('springBootVersion').get()}")
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    testImplementation 'org.springframework.boot:spring-boot-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'com.h2database:h2'
+    // Test-only security patch beyond the Boot BOM; 3.5.11 fixes October 2026 driver advisories.
+    testRuntimeOnly 'org.mariadb.jdbc:mariadb-java-client:3.5.11'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+java { withSourcesJar(); withJavadocJar() }
+tasks.withType(JavaCompile).configureEach { options.release = 17; options.encoding = 'UTF-8'; options.compilerArgs << '-Xlint:all' }
+// Keep the MIT license with binary, source and Javadoc distributions.
+tasks.withType(Jar).configureEach {
+    from('LICENSE') { into 'META-INF' }
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+tasks.withType(Javadoc).configureEach { options.encoding = 'UTF-8'; options.addStringOption('Xdoclint:none', '-quiet') }
+test { useJUnitPlatform() }
+publishing {
+    publications {
+        starter(MavenPublication) {
+            artifactId = 'lunixi-spring-boot-starter'
+            from components.java
+            pom {
+                name = 'Lunixi Spring Boot Starter'
+                description = 'Native Spring Boot auto-configuration and transactional checkout ledger for Lunixi.'
+                url = 'https://github.com/Lunixi-Payment/lunixi-spring-boot-starter'
+                licenses { license { name = 'MIT'; url = 'https://opensource.org/licenses/MIT' } }
+                scm { url = 'https://github.com/Lunixi-Payment/lunixi-spring-boot-starter' }
+            }
+        }
+    }
+}

@@ -1,0 +1,19 @@
+rootProject.name = 'lunixi-spring-boot-starter'
+def explicitSdkSource = providers.gradleProperty('lunixiSdkSource').orNull
+def sdkSource = explicitSdkSource ?: '.sdk-cache/lunixi-java'
+if (explicitSdkSource == null) {
+    def result = providers.exec {
+        workingDir rootDir
+        commandLine 'python3', 'tools/bootstrap-sdk.py', '--verify'
+        ignoreExitValue = true
+    }.result.get()
+    if (result.exitValue != 0) {
+        throw new GradleException('Reviewed SDK source validation failed. Run python3 tools/bootstrap-sdk.py; do not bypass checksum validation.')
+    }
+} else {
+    logger.lifecycle('Explicit development SDK source override selected; immutable public bootstrap is bypassed.')
+}
+if (!file("${sdkSource}/settings.gradle").exists()) {
+    throw new GradleException('The explicitly selected SDK source is not an installable Gradle build.')
+}
+includeBuild(sdkSource)

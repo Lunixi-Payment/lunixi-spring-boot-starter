@@ -1,0 +1,10 @@
+/.gradle/
+/build/
+/.sdk-cache/
+/dist/
+**/.env
+**/.env.*
+**/var/
+**/build/
+**/.gradle/
+*.class
