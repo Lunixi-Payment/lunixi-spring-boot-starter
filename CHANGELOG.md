@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1
+
+- Add Maven Central developer/SCM metadata and an existing-GPG-agent signing publication with clean repository-layout bundle tasks.
+- Derive artifact verification from the release version instead of a hard-coded coordinate.
+- No runtime payment, ledger or webhook behavior changed; earlier functional CI acceptance remains the baseline, with this release rebuilt and checked as a publication metadata patch.
+
 ## 0.1.0
 
 - Spring Boot 4.1.2 / Java 17+ auto-configuration for Java SDK 0.2.0, approved HTTPS gateway origins, native token-store/transport injection and strict merchant webhook adaptation.

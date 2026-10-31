@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
+    id 'signing'
 }
 group = providers.gradleProperty('lunixiGroupId').get()
 version = providers.gradleProperty('lunixiVersion').get()
@@ -40,8 +41,51 @@ publishing {
                 description = 'Native Spring Boot auto-configuration and transactional checkout ledger for Lunixi.'
                 url = 'https://github.com/Lunixi-Payment/lunixi-spring-boot-starter'
                 licenses { license { name = 'MIT'; url = 'https://opensource.org/licenses/MIT' } }
-                scm { url = 'https://github.com/Lunixi-Payment/lunixi-spring-boot-starter' }
+                developers {
+                    developer {
+                        id = 'lunixi'
+                        name = 'Lunixi'
+                        organization = 'Lunixi'
+                        organizationUrl = 'https://lunixi.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/Lunixi-Payment/lunixi-spring-boot-starter.git'
+                    developerConnection = 'scm:git:ssh://git@github.com/Lunixi-Payment/lunixi-spring-boot-starter.git'
+                    url = 'https://github.com/Lunixi-Payment/lunixi-spring-boot-starter'
+                }
             }
         }
     }
+    repositories {
+        maven {
+            name = 'centralStaging'
+            url = layout.buildDirectory.dir('central-staging')
+        }
+    }
+}
+
+// Existing local GPG agent owns the key; no signing material belongs in source.
+// Ordinary builds/tests do not need a signing key. Unsigned bundles are layout
+// diagnostics only and are rejected by Maven Central.
+if (!providers.gradleProperty('lunixiUnsigned').isPresent()) {
+    signing {
+        useGpgCmd()
+        sign publishing.publications.starter
+    }
+}
+
+tasks.matching { it.name == 'publishStarterPublicationToCentralStagingRepository' }.configureEach {
+    doFirst { delete layout.buildDirectory.dir('central-staging') }
+}
+
+tasks.register('centralBundle', Zip) {
+    group = 'publishing'
+    description = 'Signed Maven Central upload bundle.'
+    dependsOn 'publishStarterPublicationToCentralStagingRepository'
+    from(layout.buildDirectory.dir('central-staging')) {
+        exclude '**/maven-metadata*'
+    }
+    archiveFileName = "lunixi-spring-boot-starter-${version}-bundle.zip"
+    destinationDirectory = layout.buildDirectory.dir('central')
 }

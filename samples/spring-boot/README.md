@@ -4,7 +4,7 @@
 
 [English](README.md) · [Türkçe](README.tr.md) · [Guide](https://docs.lunixi.com/en/sdks/spring-boot) · [Source](https://github.com/Lunixi-Payment/lunixi-spring-boot-starter/tree/main/samples/spring-boot)
 
-A runnable **Spring Boot 4.1.2 / Java 17+** MVC application using **Lunixi Spring Boot Starter 0.1.0 / Java SDK 0.2.0**. Native Spring Security JDBC login, CSRF and owned-order checkout connect to hosted or embedded Lunixi form. Exact raw signed webhooks and authenticated payment reads update native H2 orders, event inbox and an encrypted durable outbox in the same Spring JDBC transaction.
+A runnable **Spring Boot 4.1.2 / Java 17+** MVC application using **Lunixi Spring Boot Starter 0.1.1 / Java SDK 0.2.0**. Native Spring Security JDBC login, CSRF and owned-order checkout connect to hosted or embedded Lunixi form. Exact raw signed webhooks and authenticated payment reads update native H2 orders, event inbox and an encrypted durable outbox in the same Spring JDBC transaction.
 
 Two explicitly initialized demo users each own a server-side 19.90 TRY order. The browser cannot supply the amount or customer identity. The application collects no card data. Alternative methods, split cards, installments and insurance remain configured in Lunixi's payment form. Authentication, money validation, split-parent settlement proof, encryption and retry fences belong to the shared SDK/Starter.
 

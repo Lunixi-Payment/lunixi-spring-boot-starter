@@ -4,16 +4,16 @@
 
 [English](README.md) · [Rehber](https://docs.lunixi.com/tr/sdks/spring-boot) · [Ödeme örneği](samples/spring-boot/README.tr.md) · [Sürüm geçmişi](CHANGELOG.md) · [Güvenlik](SECURITY.md)
 
-**0.1.0**, **Java SDK 0.2.0** istemcisini **Spring Boot 4.1.2 / Java 17+** uygulamasına bağlar. Otomatik bean yapılandırması, ham merchant webhook adaptörü ve isteğe bağlı transaction kullanan JDBC ledger sağlar. Spring/SDK bağımlılıkları vardır; sıfır bağımlılık iddiası yoktur.
+**0.1.1**, **Java SDK 0.2.0** istemcisini **Spring Boot 4.1.2 / Java 17+** uygulamasına bağlar. Otomatik bean yapılandırması, ham merchant webhook adaptörü ve isteğe bağlı transaction kullanan JDBC ledger sağlar. Spring/SDK bağımlılıkları vardır; sıfır bağımlılık iddiası yoktur.
 
 Kütüphane HTTP rotası açmaz, otomatik tablo kurmaz, müşteri kimliği/sipariş sahipliği çözmez ve kalıcı tahsilat/iade/iptal kuyruğu sunmaz. Çalışan MVC örneği ayrı uygulamadır; kendi auth/CSRF/sipariş yaşam döngüsü vardır. [Java ödeme/Commerce rehberi](https://github.com/Lunixi-Payment/lunixi-java/blob/main/docs/commerce.tr.md).
 
 ## Kaynak kurulumu ve Maven koordinatları
 
-Koordinat `com.lunixi:lunixi-spring-boot-starter:0.1.0`; SDK `com.lunixi:lunixi-java-sdk:0.2.0` gerekir. GitHub etiketi, composite kaynak derlemesi veya yerel Maven kurulumu Maven Central yayını değildir. İki koordinat da Central'da yayımlanana kadar incelenmiş kaynağı kullanın:
+Koordinat `com.lunixi:lunixi-spring-boot-starter:0.1.1`; SDK `com.lunixi:lunixi-java-sdk:0.2.0` gerekir. GitHub etiketi, composite kaynak derlemesi veya yerel Maven kurulumu Maven Central yayını değildir. İki koordinat da Central'da yayımlanana kadar incelenmiş kaynağı kullanın:
 
 ```sh
-git clone --depth 1 --branch v0.1.0 https://github.com/Lunixi-Payment/lunixi-spring-boot-starter.git
+git clone --depth 1 --branch v0.1.1 https://github.com/Lunixi-Payment/lunixi-spring-boot-starter.git
 cd lunixi-spring-boot-starter
 python3 tools/bootstrap-sdk.py
 gradle build
@@ -31,7 +31,7 @@ Uygulamanın `build.gradle` dosyası:
 
 ```groovy
 repositories { mavenCentral() }
-dependencies { implementation 'com.lunixi:lunixi-spring-boot-starter:0.1.0' }
+dependencies { implementation 'com.lunixi:lunixi-spring-boot-starter:0.1.1' }
 ```
 
 Starter'ın doğrulanmış kaynak SDK'sı composite build ile bağımlılığı sağlar. Yerel Maven yolu gerekiyorsa önce SDK'yı, sonra Starter'ı kurun:
@@ -99,3 +99,14 @@ python3 tools/check-secrets.py
 Gerçek MariaDB testi için `LUNIXI_TEST_DB_FILE`, localhost üzerindeki ayrı `lunixi_` şemaya ait host/port/database/username/password JSON dosyasını göstermelidir. Canlı bilgi kullanmayın. Test yalnız kendisinin benzersiz önekli InnoDB tablolarını açıp kaldırır. CI ayrı MariaDB kurar ve testin çalışmasını zorunlu tutar; açık fixture yoksa yalnız bu entegrasyon testi atlanır. H2 rollback/kilit/olay testleri gerçek Spring JDBC kullanır. Örneğin MVC/HTTP/tarayıcı/bağımlılık testleri ayrıdır. Canlı ödeme veya Marketplace onayı iddiası yoktur.
 
 Lisans: [MIT](LICENSE). [Katkı](CONTRIBUTING.md).
+
+
+## Maven Central yayın paketi
+
+Mevcut imzalama anahtarını GPG agent üzerinden açan geliştirici şu komutu çalıştırabilir:
+
+```bash
+gradle centralBundle -Psigning.gnupg.keyName=YOUR_PUBLIC_KEY_FINGERPRINT
+```
+
+Çıktı: `build/central/lunixi-spring-boot-starter-0.1.1-bundle.zip`. Maven dizin yapısında kütüphane, kaynak kod, Javadoc, POM, dosya özetleri ve ayrık imzalar bulunur. `-PlunixiUnsigned` yalnızca yerel paket yapısını incelemek içindir; Central’a yayımlanabilecek imzalı paket üretmez. Dosyanın yüklenmesi ve kayıt servisinden erişilebilir olması ayrıca doğrulanır.

@@ -17,3 +17,8 @@ CI uses SHA-pinned actions and read-only repository permissions. An isolated Mar
 Primary references: [Gradle composites](https://docs.gradle.org/current/userguide/composite_builds.html), [Spring Boot auto-configuration](https://docs.spring.io/spring-boot/reference/features/developing-auto-configuration.html), [Spring JDBC transactions](https://docs.spring.io/spring-framework/reference/data-access/transaction.html), [SpotBugs 6.5.11](https://github.com/spotbugs/spotbugs-gradle-plugin/releases/tag/6.5.11), [OSV API](https://google.github.io/osv.dev/api/).
 
 The real MariaDB test pins Connector/J 3.5.11 as a test-only dependency instead of the Boot BOM's affected 3.5.10. The [official 3.5.11 release](https://github.com/mariadb-corporation/mariadb-connector-j/releases/tag/3.5.11) fixes the October 2026 driver advisories. The application chooses its own production database driver; the test driver is not a Starter runtime dependency.
+
+
+## 0.1.1 publication metadata patch
+
+The original 0.1.0 functional CI acceptance is unchanged. Version 0.1.1 adds only Central-required developer/SCM metadata, signing and clean staging/bundle tasks, and a version-derived artifact check. Release preparation rebuilds the Java 17 library/source/Javadoc JARs and checks the generated POM, checksums and detached GPG signatures. Full functional/live tests were not rerun for this metadata-only patch. Registry publication is verified separately from local bundle generation.

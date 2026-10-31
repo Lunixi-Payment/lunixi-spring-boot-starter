@@ -7,7 +7,9 @@ import zipfile
 
 root = Path(__file__).resolve().parents[1]
 artifact = "lunixi-spring-boot-starter"
-version = "0.1.0"
+version_match = re.search(r"(?m)^lunixiVersion=(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$", (root / "gradle.properties").read_text())
+assert version_match, "Expected an exact release version in gradle.properties"
+version = version_match.group(0).split("=", 1)[1]
 for suffix in ("", "-sources", "-javadoc"):
     path = root / f"build/libs/{artifact}-{version}{suffix}.jar"
     with zipfile.ZipFile(path) as archive:

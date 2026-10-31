@@ -4,16 +4,16 @@
 
 [![CI](https://github.com/Lunixi-Payment/lunixi-spring-boot-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/Lunixi-Payment/lunixi-spring-boot-starter/actions/workflows/ci.yml) · [Türkçe](README.tr.md) · [Guide](https://docs.lunixi.com/sdks/spring-boot) · [Changelog](CHANGELOG.md) · [Security](SECURITY.md)
 
-**0.1.0** connects **Java SDK 0.2.0** to **Spring Boot 4.1.2 / Java 17+**. It provides native auto-configuration, strict raw-body merchant webhook adaptation and an opt-in transactional JDBC ledger. It uses Spring/SDK dependencies; it is not a dependency-free package.
+**0.1.1** connects **Java SDK 0.2.0** to **Spring Boot 4.1.2 / Java 17+**. It provides native auto-configuration, strict raw-body merchant webhook adaptation and an opt-in transactional JDBC ledger. It uses Spring/SDK dependencies; it is not a dependency-free package.
 
 The library creates **no HTTP route**, performs **no automatic DDL**, and does not supply customer authentication, storefront controllers or a durable capture/refund/void queue. The [runnable MVC sample](samples/spring-boot) is a separate application with its own native order/authentication lifecycle. [Java SDK payment/commerce guide](https://github.com/Lunixi-Payment/lunixi-java/blob/main/docs/commerce.en.md).
 
 ## Source installation and Maven coordinates
 
-Coordinates: `com.lunixi:lunixi-spring-boot-starter:0.1.0`, requiring `com.lunixi:lunixi-java-sdk:0.2.0`. A GitHub tag, composite source build or local Maven artifact does **not** imply Maven Central availability. Until both exact coordinates are published there, use the reviewed source:
+Coordinates: `com.lunixi:lunixi-spring-boot-starter:0.1.1`, requiring `com.lunixi:lunixi-java-sdk:0.2.0`. A GitHub tag, composite source build or local Maven artifact does **not** imply Maven Central availability. Until both exact coordinates are published there, use the reviewed source:
 
 ```sh
-git clone --depth 1 --branch v0.1.0 https://github.com/Lunixi-Payment/lunixi-spring-boot-starter.git
+git clone --depth 1 --branch v0.1.1 https://github.com/Lunixi-Payment/lunixi-spring-boot-starter.git
 cd lunixi-spring-boot-starter
 python3 tools/bootstrap-sdk.py
 gradle build
@@ -31,7 +31,7 @@ includeBuild('/absolute/path/to/lunixi-spring-boot-starter')
 ```groovy
 // Application build.gradle
 repositories { mavenCentral() }
-dependencies { implementation 'com.lunixi:lunixi-spring-boot-starter:0.1.0' }
+dependencies { implementation 'com.lunixi:lunixi-spring-boot-starter:0.1.1' }
 ```
 
 The starter's verified included build supplies SDK 0.2.0. For an explicit local Maven workflow, first install the bootstrapped SDK and then the starter:
@@ -112,3 +112,14 @@ python3 tools/check-secrets.py
 For the real MariaDB test, explicitly supply `LUNIXI_TEST_DB_FILE` pointing to a private disposable local fixture JSON with host/port/database/username/password; schema name must start `lunixi_`. The test creates unique-prefixed temporary InnoDB tables and drops only those tables. Never use production credentials. Root CI provisions an isolated MariaDB schema and requires this test to execute; a run without an explicit fixture skips only that integration test. H2 rollback/concurrency/receipt tests use actual native Spring JDBC. The sample has its own MVC/HTTP/browser/dependency suite. No live payment or marketplace certification is claimed.
 
 License: [MIT](LICENSE). [Contributing](CONTRIBUTING.md).
+
+
+## Maven Central release bundle
+
+Maintainers with the existing signing key unlocked in their GPG agent can run:
+
+```bash
+gradle centralBundle -Psigning.gnupg.keyName=YOUR_PUBLIC_KEY_FINGERPRINT
+```
+
+Output: `build/central/lunixi-spring-boot-starter-0.1.1-bundle.zip`. It contains the library, sources, Javadoc, POM, checksums and detached signatures in Maven layout. `-PlunixiUnsigned` is for local layout diagnostics only and cannot produce a publishable Central bundle. Upload and registry availability remain separate release steps.
