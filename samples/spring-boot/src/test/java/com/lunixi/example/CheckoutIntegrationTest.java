@@ -107,7 +107,7 @@ class CheckoutIntegrationTest {
         assertThat(payload).doesNotContain("fixture-browser-token");
         assertThat(payload).doesNotContain("hosted-fixture-session", "https://pay.lunixi.com");
         Map<String, Object> body = Json.parseObject(gateway.calls.stream().filter(call -> call.url().endsWith("/payments/intents")).findFirst().orElseThrow().body());
-        assertThat(body.get("amount")).isEqualTo(1990L); assertThat(body.get("callbackUrl")).isEqualTo("https://billing.example/payments/1/return");
+        assertThat(body.get("amount")).isEqualTo("1990"); assertThat(body.get("callbackUrl")).isEqualTo("https://billing.example/payments/1/return");
         assertThat(body).doesNotContainKeys("price", "paidPrice", "environment");
     }
     @Test void embeddedIsTheApplicationDefaultAndExplicitStoredHostedChoiceUsesOnlyTheBackendUrl() throws Exception {

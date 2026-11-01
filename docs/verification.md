@@ -1,6 +1,6 @@
 # Source bootstrap and build verification
 
-The Java SDK 1.0.0 public source pin is recorded in `tools/sdk-source.json`: exact public repository, full commit, expected SDK version and codeload archive SHA256. An incomplete commit/checksum is rejected before network access. Source availability, local Maven installation and Maven Central publication are separate statuses. A source build does not publish any registry package.
+The Java SDK 1.0.1 public source pin is recorded in `tools/sdk-source.json`: exact public repository, full commit, expected SDK version and codeload archive SHA256. An incomplete commit/checksum is rejected before network access. Source availability, local Maven installation and Maven Central publication are separate statuses. A source build does not publish any registry package.
 
 Run `python3 tools/bootstrap-sdk.py` explicitly before a default build. Gradle settings always call `--verify` offline for that default source. Checks include archive digest, bounded download/expansion, exact archive root, no links/traversal/duplicate entries, expected SDK version/build files, and a complete file-by-file cache comparison. A process lock serializes concurrent bootstrap, and source becomes visible through an atomic rename only after verification. Generated root Gradle output/cache directories are excluded from source comparison. Tampering fails closed; remove only the disposable `.sdk-cache` and bootstrap again after investigating. `-PlunixiSdkSource` is an explicit development override of this contract; CI/release acceptance do not use it.
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1 — 2026-11-01
+
+- Align the native sample test with string amounts and encode the forged-callback query correctly, preserving its rejection assertions.
+- Keep the Java SDK 1.0.1 pin and update public installation guidance.
+
 ## 1.0.0 — 2026-11-01
 
 - Breaking: public money request/response fields require canonical minor-unit strings; JSON numbers are rejected.

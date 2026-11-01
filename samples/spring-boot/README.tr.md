@@ -2,13 +2,13 @@
 
 # Spring Boot ödeme örneği
 
-1.0.0 kaynakları canonical string para sözleşmesini ve Java SDK 1.0.0 sürümünü kullanır. Public kaynak ve Maven Central yayını ayrı doğrulanır. Yeni kurulum mağaza içinde gömülü form açar. Yönlendirme yalnız backend paymentPageUrl ile yapılır; eski kayıtta adres yoksa yeni ödeme/anahtar açılmadan beklenir. Mevcut denemenin özgün açık mod/gövde/anahtarı korunur.
+1.0.1 kaynakları canonical string para sözleşmesini ve Java SDK 1.0.1 sürümünü kullanır. Public kaynak ve Maven Central yayını ayrı doğrulanır. Yeni kurulum mağaza içinde gömülü form açar. Yönlendirme yalnız backend paymentPageUrl ile yapılır; eski kayıtta adres yoksa yeni ödeme/anahtar açılmadan beklenir. Mevcut denemenin özgün açık mod/gövde/anahtarı korunur.
 
 
 
 [English](README.md) · [Rehber](https://docs.lunixi.com/tr/sdks/spring-boot) · [Kaynak](https://github.com/Lunixi-Payment/lunixi-spring-boot-starter/tree/main/samples/spring-boot)
 
-**Spring Boot 4.1.2 / Java 17+**, **Lunixi Spring Boot Starter 1.0.0 / Java SDK 1.0.0** ile çalışan MVC uygulaması. Yerel Spring Security JDBC oturumu, parola özeti, CSRF ve sipariş sahipliğini yönlendirmeli/gömülü Lunixi formuna bağlar. Ham imzalı webhook ve doğrulanmış ödeme GET'i; H2 siparişini, olay kaydını ve şifreli kalıcı outbox'ı aynı Spring JDBC transaction içinde günceller.
+**Spring Boot 4.1.2 / Java 17+**, **Lunixi Spring Boot Starter 1.0.1 / Java SDK 1.0.1** ile çalışan MVC uygulaması. Yerel Spring Security JDBC oturumu, parola özeti, CSRF ve sipariş sahipliğini yönlendirmeli/gömülü Lunixi formuna bağlar. Ham imzalı webhook ve doğrulanmış ödeme GET'i; H2 siparişini, olay kaydını ve şifreli kalıcı outbox'ı aynı Spring JDBC transaction içinde günceller.
 
 Açıkça oluşturulan iki deneme kullanıcısının ayrı sunucu tarafı 19,90 TRY siparişi bulunur. Tutar veya müşteri kimliği tarayıcıdan alınmaz, kart verisi toplanmaz. Alternatif yöntemler, çoklu kart, taksit ve sigorta Lunixi form ayarlarındadır. İmzalama, kesin para, çoklu kart tahsilat kanıtı, şifreleme ve güvenli tekrar ortak SDK/Starter tarafından yönetilir.
 

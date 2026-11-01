@@ -2,25 +2,25 @@
 
 # Lunixi Spring Boot Starter
 
-1.0.0, canonical minor-unit string para sözleşmesini kullanır. Java SDK 1.0.1 public kaynak commit’i ve indirilen arşivin SHA-256 özeti doğrulanmış pin ile sabitlenir; Maven Central yayını ayrıca doğrulanır. Yeni kurulum mağaza içinde gömülü form açar. Yönlendirme yalnız backend paymentPageUrl ile yapılır; eski kayıtta adres yoksa yeni ödeme/anahtar açılmadan beklenir. Mevcut denemenin özgün açık mod/gövde/anahtarı korunur.
+1.0.1, canonical minor-unit string para sözleşmesini kullanır. Java SDK 1.0.1 public kaynak commit’i ve indirilen arşivin SHA-256 özeti doğrulanmış pin ile sabitlenir; Maven Central yayını ayrıca doğrulanır. Yeni kurulum mağaza içinde gömülü form açar. Yönlendirme yalnız backend paymentPageUrl ile yapılır; eski kayıtta adres yoksa yeni ödeme/anahtar açılmadan beklenir. Mevcut denemenin özgün açık mod/gövde/anahtarı korunur.
 
 
 
 [English](README.md) · [Rehber](https://docs.lunixi.com/tr/sdks/spring-boot) · [Ödeme örneği](samples/spring-boot/README.tr.md) · [Sürüm geçmişi](CHANGELOG.md) · [Güvenlik](SECURITY.md)
 
-**1.0.0**, **Java SDK 1.0.1** istemcisini **Spring Boot 4.1.2 / Java 17+** uygulamasına bağlar. Otomatik bean yapılandırması, ham merchant webhook adaptörü ve isteğe bağlı transaction kullanan JDBC ledger sağlar. Spring/SDK bağımlılıkları vardır; sıfır bağımlılık iddiası yoktur.
+**1.0.1**, **Java SDK 1.0.1** istemcisini **Spring Boot 4.1.2 / Java 17+** uygulamasına bağlar. Otomatik bean yapılandırması, ham merchant webhook adaptörü ve isteğe bağlı transaction kullanan JDBC ledger sağlar. Spring/SDK bağımlılıkları vardır; sıfır bağımlılık iddiası yoktur.
 
 Kütüphane HTTP rotası açmaz, otomatik tablo kurmaz, müşteri kimliği/sipariş sahipliği çözmez ve kalıcı tahsilat/iade/iptal kuyruğu sunmaz. Çalışan MVC örneği ayrı uygulamadır; kendi auth/CSRF/sipariş yaşam döngüsü vardır. [Java ödeme/Commerce rehberi](https://github.com/Lunixi-Payment/lunixi-java/blob/main/docs/commerce.tr.md).
 
 ## Maven Central üzerinden kurulum
 
-**[`com.lunixi:lunixi-spring-boot-starter:1.0.0`](https://central.sonatype.com/artifact/com.lunixi/lunixi-spring-boot-starter/1.0.0)** yayını Maven Central’da doğrulandıktan sonra bu koordinatı kullanın. **[`com.lunixi:lunixi-java-sdk:1.0.1`](https://central.sonatype.com/artifact/com.lunixi/lunixi-java-sdk/1.0.1)** bağımlılığı geçişli olarak çözülür.
+**[`com.lunixi:lunixi-spring-boot-starter:1.0.1`](https://central.sonatype.com/artifact/com.lunixi/lunixi-spring-boot-starter/1.0.1)** yayını Maven Central’da doğrulandıktan sonra bu koordinatı kullanın. **[`com.lunixi:lunixi-java-sdk:1.0.1`](https://central.sonatype.com/artifact/com.lunixi/lunixi-java-sdk/1.0.1)** bağımlılığı geçişli olarak çözülür.
 
 Gradle:
 
 ```groovy
 repositories { mavenCentral() }
-dependencies { implementation 'com.lunixi:lunixi-spring-boot-starter:1.0.0' }
+dependencies { implementation 'com.lunixi:lunixi-spring-boot-starter:1.0.1' }
 ```
 
 Maven:
@@ -29,7 +29,7 @@ Maven:
 <dependency>
   <groupId>com.lunixi</groupId>
   <artifactId>lunixi-spring-boot-starter</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 </dependency>
 ```
 
@@ -40,7 +40,7 @@ Maven standart Central deposunu kullanır. Yayımlanmış bağımlılığı kull
 Starter'ın kendisini derlemek veya değiştirmek için incelenmiş kaynağı ve açık SDK bootstrap adımını kullanın:
 
 ```sh
-git clone --depth 1 --branch v1.0.0 https://github.com/Lunixi-Payment/lunixi-spring-boot-starter.git
+git clone --depth 1 --branch v1.0.1 https://github.com/Lunixi-Payment/lunixi-spring-boot-starter.git
 cd lunixi-spring-boot-starter
 python3 tools/bootstrap-sdk.py
 gradle build
@@ -58,7 +58,7 @@ Uygulamanın `build.gradle` dosyası:
 
 ```groovy
 repositories { mavenCentral() }
-dependencies { implementation 'com.lunixi:lunixi-spring-boot-starter:1.0.0' }
+dependencies { implementation 'com.lunixi:lunixi-spring-boot-starter:1.0.1' }
 ```
 
 Starter'ın doğrulanmış kaynak SDK'sı composite build ile bağımlılığı sağlar. Yerel Maven yolu gerekiyorsa önce SDK'yı, sonra Starter'ı kurun:
@@ -136,4 +136,4 @@ Mevcut imzalama anahtarını GPG agent üzerinden açan geliştirici şu komutu 
 gradle centralBundle -Psigning.gnupg.keyName=YOUR_PUBLIC_KEY_FINGERPRINT
 ```
 
-Çıktı: `build/central/lunixi-spring-boot-starter-1.0.0-bundle.zip`. Maven dizin yapısında kütüphane, kaynak kod, Javadoc, POM, dosya özetleri ve ayrık imzalar bulunur. `-PlunixiUnsigned` yalnızca yerel paket yapısını incelemek içindir; Central’a yayımlanabilecek imzalı paket üretmez. Dosyanın yüklenmesi ve kayıt servisinden erişilebilir olması ayrıca doğrulanır.
+Çıktı: `build/central/lunixi-spring-boot-starter-1.0.1-bundle.zip`. Maven dizin yapısında kütüphane, kaynak kod, Javadoc, POM, dosya özetleri ve ayrık imzalar bulunur. `-PlunixiUnsigned` yalnızca yerel paket yapısını incelemek içindir; Central’a yayımlanabilecek imzalı paket üretmez. Dosyanın yüklenmesi ve kayıt servisinden erişilebilir olması ayrıca doğrulanır.
