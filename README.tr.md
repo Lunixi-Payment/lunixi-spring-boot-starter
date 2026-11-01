@@ -2,7 +2,7 @@
 
 # Lunixi Spring Boot Starter
 
-1.0.1, canonical minor-unit string para sözleşmesini kullanır. Java SDK 1.0.1 public kaynak commit’i ve indirilen arşivin SHA-256 özeti doğrulanmış pin ile sabitlenir; Maven Central yayını ayrıca doğrulanır. Yeni kurulum mağaza içinde gömülü form açar. Yönlendirme yalnız backend paymentPageUrl ile yapılır; eski kayıtta adres yoksa yeni ödeme/anahtar açılmadan beklenir. Mevcut denemenin özgün açık mod/gövde/anahtarı korunur.
+1.0.1, canonical minor-unit string para sözleşmesini kullanır. Java SDK 1.0.1 public kaynak commit’i ve indirilen arşivin SHA-256 özeti doğrulanmış pin ile sabitlenir; starter ve SDK 1.0.1 Maven Central yayınları ayrıca doğrulandı. Yeni kurulum mağaza içinde gömülü form açar. Yönlendirme yalnız backend paymentPageUrl ile yapılır; eski kayıtta adres yoksa yeni ödeme/anahtar açılmadan beklenir. Mevcut denemenin özgün açık mod/gövde/anahtarı korunur.
 
 
 
@@ -14,7 +14,7 @@ Kütüphane HTTP rotası açmaz, otomatik tablo kurmaz, müşteri kimliği/sipar
 
 ## Maven Central üzerinden kurulum
 
-**[`com.lunixi:lunixi-spring-boot-starter:1.0.1`](https://central.sonatype.com/artifact/com.lunixi/lunixi-spring-boot-starter/1.0.1)** yayını Maven Central’da doğrulandıktan sonra bu koordinatı kullanın. **[`com.lunixi:lunixi-java-sdk:1.0.1`](https://central.sonatype.com/artifact/com.lunixi/lunixi-java-sdk/1.0.1)** bağımlılığı geçişli olarak çözülür.
+Maven Central’da yayımlanan **[`com.lunixi:lunixi-spring-boot-starter:1.0.1`](https://central.sonatype.com/artifact/com.lunixi/lunixi-spring-boot-starter/1.0.1)** koordinatını kullanın. Yayımlanmış **[`com.lunixi:lunixi-java-sdk:1.0.1`](https://central.sonatype.com/artifact/com.lunixi/lunixi-java-sdk/1.0.1)** bağımlılığı geçişli olarak çözülür.
 
 Gradle:
 

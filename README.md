@@ -2,7 +2,7 @@
 
 # Lunixi Spring Boot Starter
 
-**1.0.1 uses the canonical money-string API.** Historical 0.x artifacts do not implement this contract. The source bootstrap uses a reviewed immutable Java SDK 1.0.1 pin; Maven Central availability is verified separately before registry installation. See [migration](MIGRATION-1.0.md).
+**1.0.1 uses the canonical money-string API.** Historical 0.x artifacts do not implement this contract. The source bootstrap uses a reviewed immutable Java SDK 1.0.1 pin; both the starter and SDK 1.0.1 are published on Maven Central. See [migration](MIGRATION-1.0.md).
 
 Historical release record: **Spring Boot Starter 0.1.2** and **Java SDK 0.2.1** are published on Maven Central. Their release files were verified byte-for-byte against the signed bundle on 2026-10-31. New installations default to merchant-site embedding. Hosted checkout uses only backend paymentPageUrl; missing legacy URLs remain on hold without a new payment/key. Retained attempts keep their original explicit mode/body/key.
 
@@ -25,7 +25,7 @@ gradle test
 
 Every default Gradle build verifies the pinned archive and complete cached source tree offline. A changed, missing or additional source file fails closed. No moving branch or implicit SDK download is used. For explicit development only, `-PlunixiSdkSource=/absolute/path/to/reviewed/java` selects a reviewed checkout; its version must match `lunixiSdkVersion`. CI/release acceptance uses the public pin.
 
-Once the 1.0.1 release is verified on Maven Central, application consumers use:
+Install the published [1.0.1 release from Maven Central](https://central.sonatype.com/artifact/com.lunixi/lunixi-spring-boot-starter/1.0.1):
 
 ```groovy
 repositories { mavenCentral() }
@@ -115,4 +115,4 @@ gradle centralBundle -Psigning.gnupg.keyName=YOUR_PUBLIC_KEY_FINGERPRINT
 
 Output: `build/central/lunixi-spring-boot-starter-1.0.1-bundle.zip`. It contains the library, sources, Javadoc, POM, checksums and detached signatures in Maven layout. `-PlunixiUnsigned` is for local layout diagnostics only and cannot produce a publishable Central bundle. Upload and registry availability remain separate release steps.
 
-See [the money-string migration](MIGRATION-1.0.md) before upgrading from 0.x. Registry publication must be verified independently of source export or bundle generation.
+See [the money-string migration](MIGRATION-1.0.md) before upgrading from 0.x. The 1.0.1 starter and Java SDK registry artifacts were verified independently of source export and bundle generation.
