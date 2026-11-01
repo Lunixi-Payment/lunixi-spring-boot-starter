@@ -86,7 +86,7 @@ with tempfile.TemporaryDirectory(prefix='lunixi-spring-native-http-') as work:
         ensure(status == 403, 'Payment CSRF guard failed')
         status, _ = request('/payments/1')
         ensure(status == 405, 'GET could start a payment')
-        status, body = request('/payments/1/return?status=CAPTURED&amount=1990&paymentId=forged')
+        status, body = request('/payments/1/return?status=CAPTURED&amount="1990"&paymentId=forged')
         ensure(status == 200 and 'Pending' in body, 'Browser return changed native status')
     finally:
         process.terminate()

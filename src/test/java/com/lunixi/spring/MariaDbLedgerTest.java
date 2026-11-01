@@ -27,7 +27,7 @@ class MariaDbLedgerTest {
         if (database == null || !database.matches("lunixi_[a-zA-Z0-9_]+")) { throw new IllegalArgumentException("Disposable lunixi_ schema required."); }
         String host = (String) config.get("host");
         if (!"127.0.0.1".equals(host) && !"localhost".equals(host)) { throw new IllegalArgumentException("Local test fixture only."); }
-        DriverManagerDataSource source = new DriverManagerDataSource("jdbc:mariadb://" + host + ":" + Money.integer(config.get("port")) + "/" + database, (String) config.get("username"), (String) config.get("password"));
+        DriverManagerDataSource source = new DriverManagerDataSource("jdbc:mariadb://" + host + ":" + ((Number) config.get("port")).intValue() + "/" + database, (String) config.get("username"), (String) config.get("password"));
         var manager = new DataSourceTransactionManager(source); var jdbc = new JdbcTemplate(source);
         String prefix = "lx_java_" + UUID.randomUUID().toString().replace("-", "").substring(0, 8) + "_";
         JdbcLedgerStore ledger = new JdbcLedgerStore(source, manager, prefix); ledger.install();

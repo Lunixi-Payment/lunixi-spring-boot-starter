@@ -16,4 +16,9 @@ if (explicitSdkSource == null) {
 if (!file("${sdkSource}/settings.gradle").exists()) {
     throw new GradleException('The explicitly selected SDK source is not an installable Gradle build.')
 }
+def sdkProperties = new Properties()
+file("${sdkSource}/gradle.properties").withInputStream { sdkProperties.load(it) }
+if (sdkProperties.getProperty('lunixiVersion') != providers.gradleProperty('lunixiSdkVersion').get()) {
+    throw new GradleException('The selected SDK source version does not match lunixiSdkVersion.')
+}
 includeBuild(sdkSource)

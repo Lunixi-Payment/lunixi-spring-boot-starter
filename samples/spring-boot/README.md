@@ -2,13 +2,13 @@
 
 # Spring Boot checkout example
 
-0.1.2 / SDK 0.2.1 source preparation. Last verified public Central versions: Starter 0.1.1 / SDK 0.2.0. New installations default to merchant-site embedding. Hosted checkout uses only backend paymentPageUrl; missing legacy URLs remain on hold without a new payment/key. Retained attempts keep their original explicit mode/body/key.
+1.0.0 source uses the canonical money-string contract and Java SDK 1.0.0. Public source and Maven Central publication are verified separately. New installations default to merchant-site embedding. Hosted checkout uses only backend paymentPageUrl; missing legacy URLs remain on hold without a new payment/key. Retained attempts keep their original explicit mode/body/key.
 
 
 
 [English](README.md) · [Türkçe](README.tr.md) · [Guide](https://docs.lunixi.com/en/sdks/spring-boot) · [Source](https://github.com/Lunixi-Payment/lunixi-spring-boot-starter/tree/main/samples/spring-boot)
 
-A runnable **Spring Boot 4.1.2 / Java 17+** MVC application using **Lunixi Spring Boot Starter 0.1.2 / Java SDK 0.2.1**. Native Spring Security JDBC login, CSRF and owned-order checkout connect to hosted or embedded Lunixi form. Exact raw signed webhooks and authenticated payment reads update native H2 orders, event inbox and an encrypted durable outbox in the same Spring JDBC transaction.
+A runnable **Spring Boot 4.1.2 / Java 17+** MVC application using **Lunixi Spring Boot Starter 1.0.0 / Java SDK 1.0.0**. Native Spring Security JDBC login, CSRF and owned-order checkout connect to hosted or embedded Lunixi form. Exact raw signed webhooks and authenticated payment reads update native H2 orders, event inbox and an encrypted durable outbox in the same Spring JDBC transaction.
 
 Two explicitly initialized demo users each own a server-side 19.90 TRY order. The browser cannot supply the amount or customer identity. The application collects no card data. Alternative methods, split cards, installments and insurance remain configured in Lunixi's payment form. Authentication, money validation, split-parent settlement proof, encryption and retry fences belong to the shared SDK/Starter.
 

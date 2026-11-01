@@ -10,6 +10,9 @@ artifact = "lunixi-spring-boot-starter"
 version_match = re.search(r"(?m)^lunixiVersion=(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$", (root / "gradle.properties").read_text())
 assert version_match, "Expected an exact release version in gradle.properties"
 version = version_match.group(0).split("=", 1)[1]
+sdk_version_match = re.search(r"(?m)^lunixiSdkVersion=(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$", (root / "gradle.properties").read_text())
+assert sdk_version_match, "Expected an exact SDK release version in gradle.properties"
+sdk_version = sdk_version_match.group(0).split("=", 1)[1]
 for suffix in ("", "-sources", "-javadoc"):
     path = root / f"build/libs/{artifact}-{version}{suffix}.jar"
     with zipfile.ZipFile(path) as archive:
@@ -36,6 +39,6 @@ assert pom.findtext("p:artifactId", namespaces=ns) == artifact
 assert pom.findtext("p:version", namespaces=ns) == version
 assert pom.findtext("p:scm/p:url", namespaces=ns) == "https://github.com/Lunixi-Payment/lunixi-spring-boot-starter"
 dependencies = {(d.findtext("p:groupId", namespaces=ns), d.findtext("p:artifactId", namespaces=ns), d.findtext("p:version", namespaces=ns)) for d in pom.findall("p:dependencies/p:dependency", ns)}
-assert ("com.lunixi", "lunixi-java-sdk", "0.2.1") in dependencies
+assert ("com.lunixi", "lunixi-java-sdk", sdk_version) in dependencies
 assert not any(group.startswith("org.junit") for group, _, _ in dependencies)
-print("Starter class61/JAR boundaries, Boot registration/metadata and SDK0.2 POM dependency passed.")
+print(f"Starter class61/JAR boundaries, Boot registration/metadata and SDK {sdk_version} POM dependency passed.")

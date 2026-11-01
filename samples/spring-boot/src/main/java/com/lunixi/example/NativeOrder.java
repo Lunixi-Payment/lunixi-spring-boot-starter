@@ -9,7 +9,7 @@ public record NativeOrder(long id, String owner, String merchant, String environ
                           String mode, boolean preauth, String locale, String state, String paymentId,
                           long charged, long captured, long refunded, String reservedFingerprint,
                           String reservedOwner, String reservedEnvironment, boolean manualHold) {
-    public OrderSnapshot snapshot() { return new OrderSnapshot(merchant, key(id), Money.integer(amount), currency); }
+    public OrderSnapshot snapshot() { return new OrderSnapshot(merchant, key(id), Money.encode(amount), currency); }
     public String displayAmount() { return BigDecimal.valueOf(amount, Money.exponent(currency)).toPlainString(); }
     public boolean isPayable() { return "pending".equals(state) && !manualHold; }
     public static String key(long id) {

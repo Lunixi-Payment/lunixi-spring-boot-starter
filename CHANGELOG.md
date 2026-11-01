@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.0 — 2026-11-01
+
+- Breaking: public money request/response fields require canonical minor-unit strings; JSON numbers are rejected.
+- Exact signed 64-bit fiat arithmetic and currency-aware decimal text conversion preserve values above JavaScript’s safe-integer limit.
+- See [MIGRATION-1.0.md](MIGRATION-1.0.md) before upgrading.
+
+
 ## 0.1.2
 
 - Use Java SDK 0.2.1 hosted URL contract. New MVC installations default to embedded merchant-site checkout; retained explicit hosted orders keep their original choice.

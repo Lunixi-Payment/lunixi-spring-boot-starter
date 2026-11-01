@@ -51,7 +51,7 @@ final class GatewayFixture implements HttpTransport {
         response.put("details", Map.of("capturedAmount", Long.toString(amount), "refundedAmount", Long.toString(refunded)));
     }
     @SuppressWarnings("unchecked")
-    void gross(long amount) { ((Map<String, Object>) payments.get("pi-1").get("data")).put("amount", amount); }
+    void gross(long amount) { ((Map<String, Object>) payments.get("pi-1").get("data")).put("amount", Long.toString(amount)); }
     long creates() { return calls.stream().filter(call -> call.url().endsWith("/payments/intents")).count(); }
     private HttpResult result(Map<String, Object> value) { return new HttpResult(200, Map.of(), Json.stringify(value)); }
     record Call(String method, String url, Map<String, String> headers, String body) {
