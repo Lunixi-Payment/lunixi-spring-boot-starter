@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.0 — 2026-11-15
+
+- Built on Java SDK 1.5.1: every product client in that release (payment methods, bank transfer, payment links, physical POS, wallet, bank accounts, sanction, insurance, subscriptions, KYC, identity, marketplace) is available from the injected `LunixiClient`.
+- The source bootstrap accepts any reviewed Java SDK 1.x pin; the pin moves to the Java SDK 1.5.1 public commit and archive checksum.
+
 ## 1.0.1 — 2026-11-01
 
 - Align the native sample test with string amounts and encode the forged-callback query correctly, preserving its rejection assertions.

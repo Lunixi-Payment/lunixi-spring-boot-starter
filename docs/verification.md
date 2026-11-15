@@ -1,6 +1,6 @@
 # Source bootstrap and build verification
 
-The Java SDK 1.0.1 public source pin is recorded in `tools/sdk-source.json`: exact public repository, full commit, expected SDK version and codeload archive SHA256. An incomplete commit/checksum is rejected before network access. Source availability, local Maven installation and Maven Central publication are separate statuses. A source build does not publish any registry package.
+The Java SDK 1.5.1 public source pin is recorded in `tools/sdk-source.json`: exact public repository, full commit, expected SDK version and codeload archive SHA256. An incomplete commit/checksum is rejected before network access. Source availability, local Maven installation and Maven Central publication are separate statuses. A source build does not publish any registry package.
 
 Run `python3 tools/bootstrap-sdk.py` explicitly before a default build. Gradle settings always call `--verify` offline for that default source. Checks include archive digest, bounded download/expansion, exact archive root, no links/traversal/duplicate entries, expected SDK version/build files, and a complete file-by-file cache comparison. A process lock serializes concurrent bootstrap, and source becomes visible through an atomic rename only after verification. Generated root Gradle output/cache directories are excluded from source comparison. Tampering fails closed; remove only the disposable `.sdk-cache` and bootstrap again after investigating. `-PlunixiSdkSource` is an explicit development override of this contract; CI/release acceptance do not use it.
 
@@ -29,6 +29,10 @@ The original 0.1.0 functional CI acceptance is unchanged. Version 0.1.1 adds onl
 Prepared against Java SDK 0.2.1 public commit `1679f0baa8257e4c06ae7180c98e937a13b67169`, codeload archive SHA256 `5b8f513c0be42ff62f7e588b4d8a6a876f58206ee259aaf9c67b44873ce8ee65`. Default bootstrap and offline verification passed in a clean standalone source copy, with no SDK source override. Changed source, unexpected source file and altered archive controls were rejected, then exact sources restored and reverified. Ten bootstrap/tamper unit tests passed.
 
 Strict library compilation, SpotBugs (zero findings), JAR/source/Javadoc/POM validation and source-secret negative controls passed. The standalone MVC application passed 22 real Spring/Security/JDBC/H2 tests, the actual browser object/token/mount contract and installDist against the public pinned SDK. New tests cover embedded default, retained explicit hosted preference, encrypted backend URL persistence and missing legacy URL without another create/key. Gateway transport was synthetic; no live merchant charge or new full licensed/native platform matrix was run.
+
+## 1.1.0 release preparation with SDK 1.5.1
+
+The source pin is Java SDK 1.5.1 public commit `fa4282ca0715163a437cd7bc657092580b23d8d4`, codeload archive SHA-256 `cf74c70605ec120dc8159776a30eeb5ad17c3daa9291090df819fd8b2f65463a` (365,647 bytes; 235 entries), downloaded twice with the same digest. The bootstrap version check now accepts any 1.x SDK release while still requiring the exact version declared by `lunixiSdkVersion`. On JDK 17: offline bootstrap regressions (10), default bootstrap and offline verification, strict library compilation and tests, SpotBugs, JAR/source/Javadoc/POM checks (SDK 1.5.1 POM dependency) and the OSV dependency audit passed. The MariaDB acceptance test runs in public CI. The starter's public API is unchanged; new SDK product clients are reached through the injected `LunixiClient`.
 
 ## 1.0.0 release preparation with SDK 1.0.1
 
