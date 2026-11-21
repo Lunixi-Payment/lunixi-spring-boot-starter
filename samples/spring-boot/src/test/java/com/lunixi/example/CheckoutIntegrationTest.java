@@ -75,7 +75,7 @@ class CheckoutIntegrationTest {
         jdbc.update("DELETE FROM sample_outbox"); jdbc.update("DELETE FROM sample_orders"); jdbc.update("DELETE FROM lunixi_events"); jdbc.update("DELETE FROM lunixi_attempts");
         insert(1, "alice"); insert(2, "bob"); gateway.reset();
     }
-    private void insert(long id, String user) { jdbc.update("INSERT INTO sample_orders(id,owner_username,merchant_id,environment,base_amount,currency,checkout_mode,preauth,locale) VALUES (?,?,'merchant-a','TEST',1990,'TRY','hosted',FALSE,'en')", id, user); }
+    private void insert(long id, String user) { jdbc.update("INSERT INTO sample_orders(id,owner_username,merchant_id,environment,base_amount,currency,checkout_mode,preauth,locale,order_details) VALUES (?,?,'merchant-a','TEST',1990,'TRY','hosted',FALSE,'en',?)", id, user, NativeSchema.demoOrderDetails(user)); }
     private void start() throws Exception { mvc.perform(post("/payments/1").with(user("alice").roles("CUSTOMER")).with(csrf())).andExpect(status().isSeeOther()); }
     private Signed signed(String id, String extra) throws Exception { return signed(id, extra, "TEST", Instant.now().toString()); }
     private Signed signed(String id, String extra, String environment, String timestamp) throws Exception {

@@ -2,7 +2,7 @@
 
 # Lunixi Spring Boot Starter
 
-**1.1.0 uses the canonical money-string API.** Historical 0.x artifacts do not implement this contract. The source bootstrap uses a reviewed immutable Java SDK 1.5.1 pin; both the starter and SDK 1.5.1 are published on Maven Central. See [migration](MIGRATION-1.0.md).
+**2.0.0 uses the canonical money-string API.** Historical 0.x artifacts do not implement this contract. The source bootstrap uses a reviewed immutable Java SDK 2.0.1 pin; both the starter and SDK 2.0.1 are published on Maven Central. See [migration](MIGRATION-1.0.md).
 
 Historical release record: **Spring Boot Starter 0.1.2** and **Java SDK 0.2.1** are published on Maven Central. Their release files were verified byte-for-byte against the signed bundle on 2026-10-31. New installations default to merchant-site embedding. Hosted checkout uses only backend paymentPageUrl; missing legacy URLs remain on hold without a new payment/key. Retained attempts keep their original explicit mode/body/key.
 
@@ -10,13 +10,13 @@ Historical release record: **Spring Boot Starter 0.1.2** and **Java SDK 0.2.1** 
 
 [![CI](https://github.com/Lunixi-Payment/lunixi-spring-boot-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/Lunixi-Payment/lunixi-spring-boot-starter/actions/workflows/ci.yml) · [Türkçe](README.tr.md) · [Guide](https://docs.lunixi.com/sdks/spring-boot) · [Changelog](CHANGELOG.md) · [Security](SECURITY.md)
 
-**1.1.0** connects **Java SDK 1.5.1** to **Spring Boot 4.1.2 / Java 17+**. It provides native auto-configuration, strict raw-body merchant webhook adaptation and an opt-in transactional JDBC ledger. It uses Spring/SDK dependencies; it is not a dependency-free package.
+**2.0.0** connects **Java SDK 2.0.1** to **Spring Boot 4.1.2 / Java 17+**. It provides native auto-configuration, strict raw-body merchant webhook adaptation and an opt-in transactional JDBC ledger. It uses Spring/SDK dependencies; it is not a dependency-free package.
 
 The library creates **no HTTP route**, performs **no automatic DDL**, and does not supply customer authentication, storefront controllers or a durable capture/refund/void queue. The [runnable MVC sample](samples/spring-boot) is a separate application with its own native order/authentication lifecycle. [Java SDK payment/commerce guide](https://github.com/Lunixi-Payment/lunixi-java/blob/main/docs/commerce.en.md).
 
 ## Build from reviewed public source
 
-Use JDK 17+, Python 3.9+ and Gradle 9.7.1. The committed `tools/sdk-source.json` pins Java SDK 1.5.1 to its reviewed public commit and downloaded codeload archive SHA-256. An incomplete pin fails before any download.
+Use JDK 17+, Python 3.9+ and Gradle 9.7.1. The committed `tools/sdk-source.json` pins Java SDK 2.0.1 to its reviewed public commit and downloaded codeload archive SHA-256. An incomplete pin fails before any download.
 
 ```sh
 python3 tools/bootstrap-sdk.py
@@ -25,11 +25,11 @@ gradle test
 
 Every default Gradle build verifies the pinned archive and complete cached source tree offline. A changed, missing or additional source file fails closed. No moving branch or implicit SDK download is used. For explicit development only, `-PlunixiSdkSource=/absolute/path/to/reviewed/java` selects a reviewed checkout; its version must match `lunixiSdkVersion`. CI/release acceptance uses the public pin.
 
-Install the published [1.1.0 release from Maven Central](https://central.sonatype.com/artifact/com.lunixi/lunixi-spring-boot-starter/1.1.0):
+Install the published [2.0.0 release from Maven Central](https://central.sonatype.com/artifact/com.lunixi/lunixi-spring-boot-starter/2.0.0):
 
 ```groovy
 repositories { mavenCentral() }
-dependencies { implementation 'com.lunixi:lunixi-spring-boot-starter:1.1.0' }
+dependencies { implementation 'com.lunixi:lunixi-spring-boot-starter:2.0.0' }
 ```
 
 Public source, local Maven installation and registry publication are separate facts. The bootstrap does not publish either package.
@@ -113,6 +113,6 @@ Maintainers with the existing signing key unlocked in their GPG agent can run:
 gradle centralBundle -Psigning.gnupg.keyName=YOUR_PUBLIC_KEY_FINGERPRINT
 ```
 
-Output: `build/central/lunixi-spring-boot-starter-1.1.0-bundle.zip`. It contains the library, sources, Javadoc, POM, checksums and detached signatures in Maven layout. `-PlunixiUnsigned` is for local layout diagnostics only and cannot produce a publishable Central bundle. Upload and registry availability remain separate release steps.
+Output: `build/central/lunixi-spring-boot-starter-2.0.0-bundle.zip`. It contains the library, sources, Javadoc, POM, checksums and detached signatures in Maven layout. `-PlunixiUnsigned` is for local layout diagnostics only and cannot produce a publishable Central bundle. Upload and registry availability remain separate release steps.
 
-See [the money-string migration](MIGRATION-1.0.md) before upgrading from 0.x. The 1.1.0 starter and Java SDK registry artifacts were verified independently of source export and bundle generation.
+See [the money-string migration](MIGRATION-1.0.md) before upgrading from 0.x. The 2.0.0 starter and Java SDK registry artifacts were verified independently of source export and bundle generation.

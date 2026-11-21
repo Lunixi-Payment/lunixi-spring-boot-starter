@@ -70,6 +70,6 @@ public class OrderRepository {
         return rows.get(0);
     }
     private static NativeOrder map(java.sql.ResultSet rs) throws java.sql.SQLException {
-        return new NativeOrder(rs.getLong("id"), rs.getString("owner_username"), rs.getString("merchant_id"), rs.getString("environment"), rs.getLong("base_amount"), rs.getString("currency"), rs.getString("checkout_mode"), rs.getBoolean("preauth"), rs.getString("locale"), rs.getString("state"), rs.getString("payment_id"), rs.getLong("charged_amount"), rs.getLong("captured_amount"), rs.getLong("refunded_amount"), rs.getString("reserved_fingerprint"), rs.getString("reserved_owner"), rs.getString("reserved_environment"), rs.getBoolean("manual_hold"));
+        return new NativeOrder(rs.getLong("id"), rs.getString("owner_username"), rs.getString("merchant_id"), rs.getString("environment"), rs.getLong("base_amount"), rs.getString("currency"), rs.getString("checkout_mode"), rs.getBoolean("preauth"), rs.getString("locale"), rs.getString("state"), rs.getString("payment_id"), rs.getLong("charged_amount"), rs.getLong("captured_amount"), rs.getLong("refunded_amount"), rs.getString("reserved_fingerprint"), rs.getString("reserved_owner"), rs.getString("reserved_environment"), rs.getBoolean("manual_hold"), rs.getString("order_details"));
     }
 }

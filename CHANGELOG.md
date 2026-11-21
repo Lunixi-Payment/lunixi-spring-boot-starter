@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.0 — 2026-11-21
+
+- **Breaking:** built on Java SDK 2.0.1. Payment requests require the order details (buyer, billing address, at least one basket item; shipping address for a `PHYSICAL` item): `CommerceService.start` refuses an `OrderSnapshot` without them (`withOrderDetails(...)`), and the SDK's payment calls on the injected `LunixiClient` check them before sending. See the Java SDK 2.0.0 changelog.
+- The sample stores the order details with each native order and passes them in its snapshot.
+- The source bootstrap accepts a reviewed SDK pin of any major release; the pin moves to the Java SDK 2.0.1 public commit and archive checksum.
+
 ## 1.1.0 — 2026-11-15
 
 - Built on Java SDK 1.5.1: every product client in that release (payment methods, bank transfer, payment links, physical POS, wallet, bank accounts, sanction, insurance, subscriptions, KYC, identity, marketplace) is available from the injected `LunixiClient`.

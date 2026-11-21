@@ -29,7 +29,7 @@ def manifest(path: Path) -> dict:
         raise ValueError("SDK manifest requires exact repository/commit/version/sha256 fields.")
     if not all(isinstance(item, str) for item in value.values()):
         raise ValueError("SDK manifest values must be strings.")
-    sdk_version = re.search(r"(?m)^lunixiSdkVersion=(1\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*))$", (path.parents[1] / "gradle.properties").read_text())
+    sdk_version = re.search(r"(?m)^lunixiSdkVersion=([1-9][0-9]*\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*))$", (path.parents[1] / "gradle.properties").read_text())
     if not sdk_version or value["repository"] != "Lunixi-Payment/lunixi-java" or value["version"] != sdk_version[1]:
         raise ValueError("Unexpected SDK repository/version.")
     if not re.fullmatch(r"[a-f0-9]{40}", value["commit"]) or not re.fullmatch(r"[a-f0-9]{64}", value["sha256"]):
